@@ -7,12 +7,27 @@
                     <h3>Ver Clientes</h3>
                 </div>
                 <div class="card-body">
-                    <asp:GridView runat="server" ID="grillaClientes" CssClass="table table-hover table-bordered" AutoGenerateColumns="false">
+                    <div class="form-group">
+                        <label for="nivelDbl">Filtrar por nivel:</label>
+                        <asp:DropDownList runat="server" ID="nivelDbl" AutoPostBack="true" OnSelectedIndexChanged="nivelDbl_SelectedIndexChanged">
+                            <asp:ListItem Value="0" Text="Todos"></asp:ListItem>
+                            <asp:ListItem Value="1" Text="Silver"></asp:ListItem>
+                            <asp:ListItem Value="2" Text="Gold"></asp:ListItem>
+                            <asp:ListItem Value="3" Text="Platinum"></asp:ListItem>
+                        </asp:DropDownList>
+
+                    </div>
+                    <asp:GridView runat="server" ID="grillaClientes" EmptyDataText="No hay clientes" ShowHeader="true" CssClass="table table-hover table-bordered" AutoGenerateColumns="false" OnRowCommand="grillaClientes_RowCommand">
                         <Columns>
                             <asp:BoundField DataField="Rut" HeaderText="RUT" />
                             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                             <asp:BoundField DataField="NivelString" HeaderText="Nivel" />
                             <asp:BoundField DataField="BebidaFavorita" HeaderText="Bebida Favorita" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button  CommandName="eliminar" CommandArgument='<%# Eval("Rut") %>' runat="server" CssClass="btn btn-danger" Text="Eliminar"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                 </div>
